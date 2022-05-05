@@ -17,7 +17,10 @@ public class TeleopDrive extends CommandBase {
     addRequirements(Robot.driveTrain);
   }
 
-  // Called when the command is initially scheduled.
+  public TeleopDrive(double d, double e) {
+}
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
 

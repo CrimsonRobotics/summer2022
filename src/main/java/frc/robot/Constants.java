@@ -15,4 +15,9 @@ package frc.robot;
 public final class Constants {
     public static int leftMotorID = 50;
     public static int rightMotorID = 51;
+
+    public static double waitCommand = 0.0000000001;
+    public static double longMove = .2;
+    public static double hop = .1;
+    public static double kick = .05;
 }
