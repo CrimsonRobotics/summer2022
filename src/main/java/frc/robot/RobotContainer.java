@@ -52,7 +52,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    // new DanceAuto();
-    return new DanceAuto();
+    new DanceAuto();
+    return new ExampleCommand(m_exampleSubsystem);
   }
 }

@@ -31,6 +31,11 @@ public class Drivetrain extends SubsystemBase {
     diffDrive.arcadeDrive(xSpeed, ySpeed);
   }
 
+  public void MotorOverride(double leftSpeed, double rightSpeed){
+    leftMotor.set(leftSpeed);
+    rightMotor.set(rightSpeed);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

@@ -5,11 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 
-public class DriveDistance extends CommandBase {
+public class ManualDrive extends CommandBase {
   /** Creates a new DriveDistance. */
-  public DriveDistance() {
+  double leftSpeed;
+  double rightSpeed;
+
+  public ManualDrive(double left, double right) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(Robot.driveTrain);
+    leftSpeed = left;
+    rightSpeed = right;
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +25,9 @@ public class DriveDistance extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    Robot.driveTrain.MotorOverride(leftSpeed, rightSpeed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
