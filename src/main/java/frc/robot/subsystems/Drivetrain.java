@@ -7,32 +7,34 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
-  /* Creates a new Drivetrain. 
-   * @param rightMotorID
-   * @param leftMotorID
-   */
+  /** Creates a new Drivetrain. */
+  CANSparkMax motorL1;
+  CANSparkMax motorL2;
+  CANSparkMax motorR1;
+  CANSparkMax motorR2;
 
-  CANSparkMax leftMotor;
-  CANSparkMax rightMotor;
-  DifferentialDrive diffDrive;
   public Drivetrain() {
-    leftMotor = new CANSparkMax(Constants.leftMotorID, MotorType.kBrushless);
-    rightMotor = new CANSparkMax(Constants.rightMotorID, MotorType.kBrushless);
+    motorL1 = new CANSparkMax(Constants.motorL1, MotorType.kBrushed);
+    motorL2 = new CANSparkMax(Constants.motorL2, MotorType.kBrushed);
+    motorR1 = new CANSparkMax(Constants.motorR1, MotorType.kBrushed);
+    motorR2 = new CANSparkMax(Constants.motorR2, MotorType.kBrushed);
 
-    diffDrive = new DifferentialDrive(leftMotor, rightMotor);
-  }
-
-  public void TeleopDrive(double xSpeed, double ySpeed) {
-    diffDrive.arcadeDrive(xSpeed, ySpeed);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void TeleopDrive(double forwardSpeed, double turnSpeed) {
+    motorL1.set(forwardSpeed + turnSpeed);
+    motorL2.set(forwardSpeed + turnSpeed);
+    motorR1.set(forwardSpeed - turnSpeed);
+    motorR2.set(forwardSpeed - turnSpeed);
+
   }
 }

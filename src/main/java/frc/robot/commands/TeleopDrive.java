@@ -4,34 +4,27 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Drivetrain;
 
 public class TeleopDrive extends CommandBase {
   /** Creates a new TeleopDrive. */
   public TeleopDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Robot.driveTrain);
+    addRequirements(Robot.drivetrain);
   }
 
-  public TeleopDrive(double d, double e) {
-}
-
-// Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xSpeed = RobotContainer.driverR.getX();
-    double ySpeed = RobotContainer.driverL.getY();
-    Robot.driveTrain.TeleopDrive(xSpeed, ySpeed);
+    double xSpeed = RobotContainer.joystickL.getX();
+    double ySpeed = RobotContainer.joystickR.getY();
+    Robot.drivetrain.TeleopDrive(xSpeed, ySpeed);
   }
 
   // Called once the command ends or is interrupted.
