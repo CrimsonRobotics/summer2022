@@ -22,8 +22,8 @@ public class TeleopDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xSpeed = -RobotContainer.joystickL.getX();
-    double ySpeed = RobotContainer.joystickR.getY();
+    double xSpeed = -RobotContainer.joystickL.getY();
+    double ySpeed = RobotContainer.joystickR.getX();
     Robot.drivetrain.TeleopDrive(xSpeed, ySpeed);
   }
 

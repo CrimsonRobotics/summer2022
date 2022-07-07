@@ -36,10 +36,6 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
 
   public void TeleopDrive(double forwardSpeed, double turnSpeed) {
     motorL1.set(forwardSpeed + turnSpeed);
@@ -48,4 +44,11 @@ public class Drivetrain extends SubsystemBase {
     motorR2.set(forwardSpeed - turnSpeed);
 
   }
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+  
 }
