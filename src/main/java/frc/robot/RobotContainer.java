@@ -7,9 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.DanceAuto;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.Drive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,7 +32,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     // Configure the button bindings
-    Robot.driveTrain.setDefaultCommand(new TeleopDrive());
+    Robot.driveTrain.setDefaultCommand(new Drive());
     configureButtonBindings();
   }
 
@@ -52,7 +51,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    new DanceAuto();
+    
     return m_autoCommand;
   }
 }

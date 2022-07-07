@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -17,18 +18,41 @@ public class Drivetrain extends SubsystemBase {
    * @param leftMotorID
    */
 
-  CANSparkMax leftMotor;
-  CANSparkMax rightMotor;
-  DifferentialDrive diffDrive;
-  public Drivetrain() {
-    leftMotor = new CANSparkMax(Constants.leftMotorID, MotorType.kBrushless);
-    rightMotor = new CANSparkMax(Constants.rightMotorID, MotorType.kBrushless);
+  CANSparkMax frontLeft;
+  CANSparkMax backLeft;
 
-    diffDrive = new DifferentialDrive(leftMotor, rightMotor);
+  CANSparkMax frontRight;
+  CANSparkMax backRight;
+
+  public Drivetrain() {
+    frontLeft = new CANSparkMax(Constants.fLID, MotorType.kBrushed);
+    backLeft = new CANSparkMax(Constants.bLID, MotorType.kBrushed);
+
+    frontRight = new CANSparkMax(Constants.fRID, MotorType.kBrushed);
+    backRight = new CANSparkMax(Constants.bRID, MotorType.kBrushed);
+
+    frontLeft.setInverted(true);
+    backLeft.setInverted(true);
+
+    frontRight.setInverted(false);
+    backRight.setInverted(false);
+
+    frontLeft.setIdleMode(IdleMode.kBrake);
+    backLeft.setIdleMode(IdleMode.kBrake);
+
+    frontRight.setIdleMode(IdleMode.kBrake);
+    backRight.setIdleMode(IdleMode.kBrake);
   }
 
-  public void TeleopDrive(double xSpeed, double ySpeed) {
-    diffDrive.arcadeDrive(xSpeed, ySpeed);
+  public void TeleopDrive(double forwardSpeed, double turnSpeed) {
+
+    frontLeft.set(forwardSpeed - turnSpeed);
+    backLeft.set(forwardSpeed - turnSpeed);
+    frontRight.set(forwardSpeed + turnSpeed);
+    backRight.set(forwardSpeed + turnSpeed);
+
+
+
   }
 
   @Override
