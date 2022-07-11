@@ -7,7 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,8 +21,11 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   public static RobotContainer m_robotContainer;
-
   public static Drivetrain drivetrain;
+  public static Climber climber;
+  public static Intake intake;
+
+  public static String currentState = "Initializing";
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -33,6 +38,10 @@ public class Robot extends TimedRobot {
     drivetrain = new Drivetrain();
 
     m_robotContainer = new RobotContainer();
+
+    climber = new Climber();
+
+    intake = new Intake();
     
   }
 

@@ -13,9 +13,14 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    //Spark Max IDs
     public static int motorL1 = 55;
     public static int motorL2 = 61;
     public static int motorR1 = 52;
     public static int motorR2 = 32;
+
+    //Pneumatics
+    public static int climberSolenoidID = 0;
+    public static int PCM = 0;
 
 }

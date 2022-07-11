@@ -12,6 +12,7 @@ import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,6 +28,13 @@ public class RobotContainer {
 
   public static Joystick joystickL = new Joystick(0);
   public static Joystick joystickR = new Joystick(1);
+
+  public static Joystick operatorL = new Joystick(2);
+  public static Joystick operatorR = new Joystick(3);
+
+  public static JoystickButton intakeReverseButton = new JoystickButton(operatorL, 1);
+  public static JoystickButton intakeNormalButton = new JoystickButton(operatorL, 2);
+  public static JoystickButton intakePauseButton = new JoystickButton(operatorL, 3);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
