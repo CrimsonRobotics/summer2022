@@ -19,8 +19,24 @@ public final class Constants {
     public static int motorR1 = 52;
     public static int motorR2 = 32;
 
+    public final static int intakeMotorID = 58;
+
+    public final static int carouselSpinnerID = 34;
+
     //Pneumatics
     public static int climberSolenoidID = 0;
+
+    public final static int[] intakeSolenodIDS = {4,2};
+
     public static int PCM = 0;
+
+    // Indexer Vars
+    public final static double feederWheelSpeed = 1;
+    public final static double carouselSpinnerSpeed = .35;
+    public final static double carouselGearRatio = 4*7;
+    public final static double fullCarouselSpin = carouselGearRatio*3;
+
+    //Intake vars
+    public static double intakeMotorSpeed = 1;
 
 }

@@ -26,15 +26,25 @@ public class RobotContainer {
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
+  //Joysticks
   public static Joystick joystickL = new Joystick(0);
   public static Joystick joystickR = new Joystick(1);
 
   public static Joystick operatorL = new Joystick(2);
   public static Joystick operatorR = new Joystick(3);
 
+  //Indexer
+  private final JoystickButton allianceLaunch = new JoystickButton(operatorL, 1);
+
+  //intake buttons
   public static JoystickButton intakeReverseButton = new JoystickButton(operatorL, 1);
   public static JoystickButton intakeNormalButton = new JoystickButton(operatorL, 2);
   public static JoystickButton intakePauseButton = new JoystickButton(operatorL, 3);
+
+  //climber buttons
+  public static JoystickButton climberUpButton1 = new JoystickButton(operatorL, 14);
+  public static JoystickButton climberUpButton2 = new JoystickButton(operatorR, 8);
+  public static JoystickButton climberDownButton = new JoystickButton(operatorL, 8);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -49,7 +59,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
