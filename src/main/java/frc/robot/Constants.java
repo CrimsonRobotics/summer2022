@@ -23,6 +23,8 @@ public final class Constants {
 
     public final static int carouselSpinnerID = 34;
 
+    public final static int[] shooterMtrs = {31,54};
+
     //Pneumatics
     public static int climberSolenoidID = 0;
 
@@ -38,5 +40,16 @@ public final class Constants {
 
     //Intake vars
     public static double intakeMotorSpeed = 1;
+
+    // Shooter Vars
+    public final static double shtrkP = 0;
+    public final static double shtrkI = 0;
+    public final static double shtrkD = 0;
+    public final static double s_kSVolts = 2;
+
+    public final static double shootSpeed = 0.55;
+    public final static double dumpSpeed = 0.30;
+    public static double spinUpRate = .01;
+    public static double spinUpThreshold = .35;
 
 }
