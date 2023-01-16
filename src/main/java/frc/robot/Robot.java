@@ -4,7 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Drivetrain;
@@ -19,6 +22,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   public static Drivetrain driveTrain;
   public static RobotContainer m_robotContainer;
+  // public static ADXRS450_Gyro gyro;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -30,6 +34,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     driveTrain = new Drivetrain();
     m_robotContainer = new RobotContainer();
+    // ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+
   }
 
   /**
@@ -45,6 +51,9 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+    SmartDashboard.putNumber("Gyro Heading", driveTrain.gyro.getAngle());
+    SmartDashboard.getNumber("Gyro Heading", driveTrain.gyro.getRotation2d());
+
     CommandScheduler.getInstance().run();
   }
 
