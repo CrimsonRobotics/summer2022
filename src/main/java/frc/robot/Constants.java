@@ -15,7 +15,7 @@ package frc.robot;
 public final class Constants {
     public static int fLID = 59;
     // public static int bLID = 61;
-    public static int fRID = 60;
+    public static int fRID = 62;
     // public static int bRID = 32;
 
     public static double driveExpo = 1;
