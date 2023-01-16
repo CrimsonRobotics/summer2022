@@ -13,10 +13,10 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static int fLID = 55;
-    public static int bLID = 61;
-    public static int fRID = 52;
-    public static int bRID = 32;
+    public static int fLID = 59;
+    // public static int bLID = 61;
+    public static int fRID = 60;
+    // public static int bRID = 32;
 
     public static double driveExpo = 1;
     public static double turnExpo = 1;
