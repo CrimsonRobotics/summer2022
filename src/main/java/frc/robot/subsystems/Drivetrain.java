@@ -57,8 +57,11 @@ public class Drivetrain extends SubsystemBase {
     frontRight.set(forwardSpeed + turnSpeed);
     // backRight.set(forwardSpeed + turnSpeed);
 
+  }
 
-
+  public void ManualDrive(double leftSpeed, double rightSpeed) {
+    frontLeft.set(leftSpeed);
+    frontRight.set(rightSpeed);
   }
 
   @Override

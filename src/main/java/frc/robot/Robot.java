@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     driveTrain = new Drivetrain();
     m_robotContainer = new RobotContainer();
+    driveTrain.gyro.calibrate();
     // ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
   }
@@ -52,7 +53,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     SmartDashboard.putNumber("Gyro Heading", driveTrain.gyro.getAngle());
-    SmartDashboard.getNumber("Gyro Heading", driveTrain.gyro.getRotation2d());
+    // SmartDashboard.getNumber("Gyro Heading", driveTrain.gyro.getRotation2d());
 
     CommandScheduler.getInstance().run();
   }
