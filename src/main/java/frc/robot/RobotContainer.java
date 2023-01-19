@@ -36,11 +36,14 @@ public class RobotContainer {
   public static Joystick driverL = new Joystick(0);
   public static Joystick driverR = new Joystick(1);
 
+
+
   public static JoystickButton align = new JoystickButton(driverL, 1);
+  public static JoystickButton pidAlign = new JoystickButton(driverL, 2);
 
   public RobotContainer() {
 
-    align.whileHeld(new Align());
+    // align.whileHeld(new Align());
 
     // Configure the button bindings
     Robot.driveTrain.setDefaultCommand(new Drive());

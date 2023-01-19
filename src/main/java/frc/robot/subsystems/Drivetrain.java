@@ -8,10 +8,15 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.PIDCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase {
   /* Creates a new Drivetrain. 
@@ -25,6 +30,8 @@ public class Drivetrain extends SubsystemBase {
   CANSparkMax frontRight;
 
   public ADXRS450_Gyro gyro;
+
+  PIDController turnPID = new PIDController(Constants.turnkP, Constants.turnkI, Constants.turnkD);
 
   // CANSparkMax backRight;
 
@@ -64,8 +71,53 @@ public class Drivetrain extends SubsystemBase {
     frontRight.set(rightSpeed);
   }
 
+  public void Align(){
+    double gyroReadout = Robot.driveTrain.gyro.getAngle();
+
+      if (gyroReadout>5){
+        Robot.driveTrain.ManualDrive(-0.1 , 0.1);
+      }
+
+      else if (gyroReadout<-5) {
+        Robot.driveTrain.ManualDrive(0.1 , -0.1);
+      }
+
+      else {
+        Robot.driveTrain.ManualDrive(0, 0);
+      }
+  }
+
+  public void pidAlign() {
+    double gyroReadout = Robot.driveTrain.gyro.getAngle();
+    turnPID.calculate(gyroReadout, Constants.turnSetpoint);
+
+      if (!turnPID.atSetpoint()){
+        // Robot.driveTrain.ManualDrive(-0.1 , 0.1);
+        Robot.driveTrain.TeleopDrive(0, turnPID.calculate(gyroReadout, Constants.turnSetpoint));
+      }
+
+      // else if (gyroReadout<-5) {
+      //   Robot.driveTrain.ManualDrive(0.1 , -0.1);
+      // }
+
+      // else {
+      //   Robot.driveTrain.ManualDrive(0, 0);
+      // }
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putData(turnPID);
+    RobotContainer container = Robot.m_robotContainer;
+    if(container.driverL.getRawButton(1) == true && container.driverL.getRawButton(2) == false){
+      Robot.driveTrain.Align();
+    }
+    else if(container.driverL.getRawButton(2) == true && container.driverL.getRawButton(1) == false){
+      Robot.driveTrain.pidAlign();
+    }
+    else{
+      Robot.driveTrain.ManualDrive(0, 0);
+    }
   }
 }
