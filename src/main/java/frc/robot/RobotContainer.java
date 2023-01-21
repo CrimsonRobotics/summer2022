@@ -46,7 +46,7 @@ public class RobotContainer {
     // align.whileHeld(new Align());
 
     // Configure the button bindings
-    Robot.driveTrain.setDefaultCommand(new Drive());
+    // Robot.driveTrain.setDefaultCommand(new Drive());
     configureButtonBindings();
   }
 

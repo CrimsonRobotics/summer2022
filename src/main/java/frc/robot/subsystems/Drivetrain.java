@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -31,7 +32,7 @@ public class Drivetrain extends SubsystemBase {
 
   public ADXRS450_Gyro gyro;
 
-  PIDController turnPID = new PIDController(Constants.turnkP, Constants.turnkI, Constants.turnkD);
+  public PIDController turnPID;
 
   // CANSparkMax backRight;
 
@@ -55,6 +56,9 @@ public class Drivetrain extends SubsystemBase {
     // backRight.setIdleMode(IdleMode.kBrake);
 
     gyro = new ADXRS450_Gyro();
+    turnPID = new PIDController(Constants.turnkP, Constants.turnkI, Constants.turnkD);
+    turnPID.setIntegratorRange(-Constants.pidMaxPercent, Constants.pidMaxPercent);
+    // turnPID.enableContinuousInput(-360, 360);
   }
 
   public void TeleopDrive(double forwardSpeed, double turnSpeed) {
@@ -88,13 +92,20 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void pidAlign() {
-    double gyroReadout = Robot.driveTrain.gyro.getAngle();
-    turnPID.calculate(gyroReadout, Constants.turnSetpoint);
+    // if (turnPID.atSetpoint()) {
+    //   return;
+    // }
 
-      if (!turnPID.atSetpoint()){
-        // Robot.driveTrain.ManualDrive(-0.1 , 0.1);
-        Robot.driveTrain.TeleopDrive(0, turnPID.calculate(gyroReadout, Constants.turnSetpoint));
-      }
+    double gyroReadout = Robot.driveTrain.gyro.getAngle() % 360;
+    double speed = MathUtil.clamp(turnPID.calculate(gyroReadout, Constants.turnSetpoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
+    speed = speed / 100;
+    Robot.driveTrain.TeleopDrive(0, speed);
+    SmartDashboard.putNumber("Speed",speed);
+
+      // if (!turnPID.atSetpoint()){
+      //   // Robot.driveTrain.ManualDrive(-0.1 , 0.1);
+      //   Robot.driveTrain.TeleopDrive(0, turnPID.calculate(gyroReadout, Constants.turnSetpoint));
+      // }
 
       // else if (gyroReadout<-5) {
       //   Robot.driveTrain.ManualDrive(0.1 , -0.1);
@@ -109,12 +120,14 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putData(turnPID);
+  
     RobotContainer container = Robot.m_robotContainer;
     if(container.driverL.getRawButton(1) == true && container.driverL.getRawButton(2) == false){
-      Robot.driveTrain.Align();
+      Robot.driveTrain.pidAlign();
     }
     else if(container.driverL.getRawButton(2) == true && container.driverL.getRawButton(1) == false){
-      Robot.driveTrain.pidAlign();
+      Robot.driveTrain.Align();
+
     }
     else{
       Robot.driveTrain.ManualDrive(0, 0);

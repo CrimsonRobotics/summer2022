@@ -25,10 +25,11 @@ public final class Constants {
     public static double driveExpo = 1;
     public static double turnExpo = 1;
 
-    public static double turnkP = 1;
-    public static double turnkI = 0;
-    public static double turnkD = 0;
-    public static double turnSetpoint = 0;
+    public static double turnkP = 0.5; //0.5
+    public static double turnkI = 0.01;
+    public static double turnkD = 0.02;
+    public static double turnSetpoint = 140;
+    public static double pidMaxPercent = 100;
 
 
 }
