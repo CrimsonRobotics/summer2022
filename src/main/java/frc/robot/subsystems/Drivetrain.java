@@ -33,6 +33,8 @@ public class Drivetrain extends SubsystemBase {
   public ADXRS450_Gyro gyro;
 
   public PIDController turnPID;
+  public PIDController alignPID;
+
 
   // CANSparkMax backRight;
 
@@ -56,8 +58,12 @@ public class Drivetrain extends SubsystemBase {
     // backRight.setIdleMode(IdleMode.kBrake);
 
     gyro = new ADXRS450_Gyro();
+    gyro.calibrate();
     turnPID = new PIDController(Constants.turnkP, Constants.turnkI, Constants.turnkD);
     turnPID.setIntegratorRange(-Constants.pidMaxPercent, Constants.pidMaxPercent);
+
+    alignPID = new PIDController(Constants.alignkP, Constants.alignkI, Constants.alignkD);
+    alignPID.setIntegratorRange(-Constants.alignMaxPercent, Constants.alignMaxPercent);
     // turnPID.enableContinuousInput(-360, 360);
   }
 
@@ -92,28 +98,23 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void pidAlign() {
-    // if (turnPID.atSetpoint()) {
-    //   return;
-    // }
-
+   
     double gyroReadout = Robot.driveTrain.gyro.getAngle() % 360;
     double speed = MathUtil.clamp(turnPID.calculate(gyroReadout, Constants.turnSetpoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
     speed = speed / 100;
     Robot.driveTrain.TeleopDrive(0, speed);
     SmartDashboard.putNumber("Speed",speed);
 
-      // if (!turnPID.atSetpoint()){
-      //   // Robot.driveTrain.ManualDrive(-0.1 , 0.1);
-      //   Robot.driveTrain.TeleopDrive(0, turnPID.calculate(gyroReadout, Constants.turnSetpoint));
-      // }
+  }
 
-      // else if (gyroReadout<-5) {
-      //   Robot.driveTrain.ManualDrive(0.1 , -0.1);
-      // }
+  public void balance() {
 
-      // else {
-      //   Robot.driveTrain.ManualDrive(0, 0);
-      // }
+    double gyroReadout = Robot.driveTrain.gyro.getAngle() % 360;
+    double speed = MathUtil.clamp(alignPID.calculate(gyroReadout, Constants.alignSetpoint), -Constants.alignMaxPercent, Constants.alignMaxPercent);
+    speed = speed / 100;
+    Robot.driveTrain.TeleopDrive(speed, 0);
+    SmartDashboard.putNumber("align speed",speed);
+
   }
 
   @Override
@@ -123,11 +124,15 @@ public class Drivetrain extends SubsystemBase {
   
     RobotContainer container = Robot.m_robotContainer;
     if(container.driverL.getRawButton(1) == true && container.driverL.getRawButton(2) == false){
-      Robot.driveTrain.pidAlign();
+      // Robot.driveTrain.pidAlign();
+      Robot.driveTrain.balance();
     }
     else if(container.driverL.getRawButton(2) == true && container.driverL.getRawButton(1) == false){
       Robot.driveTrain.Align();
 
+    }
+    else if(container.driverL.getRawButton(3) == true){
+      Robot.driveTrain.gyro.reset();
     }
     else{
       Robot.driveTrain.ManualDrive(0, 0);

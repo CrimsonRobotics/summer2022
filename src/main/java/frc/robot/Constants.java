@@ -29,7 +29,13 @@ public final class Constants {
     public static double turnkI = 0.01;
     public static double turnkD = 0.02;
     public static double turnSetpoint = 140;
-    public static double pidMaxPercent = 100;
+    public static double pidMaxPercent = 0;
+
+    public static double alignkP = 0.5; //1
+    public static double alignkI = 0.1;
+    public static double alignkD = 0;
+    public static double alignSetpoint = 0;
+    public static double alignMaxPercent = 20;
 
 
 }

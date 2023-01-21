@@ -40,10 +40,12 @@ public class RobotContainer {
 
   public static JoystickButton align = new JoystickButton(driverL, 1);
   public static JoystickButton pidAlign = new JoystickButton(driverL, 2);
+  public static JoystickButton gyroCalibrate = new JoystickButton(driverL, 3);
 
   public RobotContainer() {
 
     // align.whileHeld(new Align());
+    // gyroCalibrate.whileHeld(Robot.driveTrain.gyro.calibrate());
 
     // Configure the button bindings
     // Robot.driveTrain.setDefaultCommand(new Drive());
