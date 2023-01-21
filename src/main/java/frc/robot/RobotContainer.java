@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.Align;
 import frc.robot.commands.Drive;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -40,14 +39,11 @@ public class RobotContainer {
 
 
 
-  public static JoystickButton align = new JoystickButton(driverL, 1);
-  public static JoystickButton pidAlign = new JoystickButton(driverL, 2);
-  public static JoystickButton gyroCalibrate = new JoystickButton(driverL, 3);
+  // public static JoystickButton align = new JoystickButton(driverL, 1);
+  // public static JoystickButton pidAlign = new JoystickButton(driverL, 2);
+  // public static JoystickButton gyroCalibrate = new JoystickButton(driverL, 3);
 
   public RobotContainer() {
-
-    // align.whileHeld(new Align());
-    // gyroCalibrate.whileHeld(Robot.driveTrain.gyro.calibrate());
 
     // Configure the button bindings
     // Robot.driveTrain.setDefaultCommand(new Drive());
