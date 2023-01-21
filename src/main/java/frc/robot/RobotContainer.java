@@ -35,6 +35,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public static Joystick driverL = new Joystick(0);
   public static Joystick driverR = new Joystick(1);
+  public static Joystick operatorL = new Joystick(2);
+  public static Joystick operatorR = new Joystick(3);
 
 
 
