@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import com.ctre.phoenix.sensors.PigeonIMU;
+
 
 public class Drivetrain extends SubsystemBase {
   /* Creates a new Drivetrain. 
@@ -34,6 +36,7 @@ public class Drivetrain extends SubsystemBase {
 
   public PIDController turnPID;
   public PIDController alignPID;
+  public PigeonIMU pigeon;
 
 
   // CANSparkMax backRight;
@@ -59,6 +62,8 @@ public class Drivetrain extends SubsystemBase {
 
     gyro = new ADXRS450_Gyro();
     gyro.calibrate();
+    pigeon = new PigeonIMU(0); //Need to check device number
+
     turnPID = new PIDController(Constants.turnkP, Constants.turnkI, Constants.turnkD);
     turnPID.setIntegratorRange(-Constants.pidMaxPercent, Constants.pidMaxPercent);
 
@@ -83,6 +88,8 @@ public class Drivetrain extends SubsystemBase {
 
   public void Align(){
     double gyroReadout = Robot.driveTrain.gyro.getAngle();
+    // double pitchReadout = Robot.driveTrain.pigeon.getPitch();
+    // double yawReadout = Robot.driveTrain.pigeon.getYaw();
 
       if (gyroReadout>5){
         Robot.driveTrain.ManualDrive(-0.1 , 0.1);
@@ -117,10 +124,24 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
+  public void pigeonAlign() {
+  
+    double[] ypr = new double [3];
+    Robot.driveTrain.pigeon.getYawPitchRoll(ypr);
+    double gyroReadout = ypr[0]; //% 360;
+    // double gyroReadout = Robot.driveTrain.pigeon.getYaw(); //% 360;
+    double speed = MathUtil.clamp(turnPID.calculate(gyroReadout, Constants.turnSetpoint), -Constants.pidMaxPercent, Constants.pidMaxPercent);
+    speed = speed / 100;
+    Robot.driveTrain.TeleopDrive(0, speed);
+    SmartDashboard.putNumber("Speed",speed);
+
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putData(turnPID);
+    // SmartDashboard.putNumber("Yaw", Robot.driveTrain.pigeon.getYaw());
   
     RobotContainer container = Robot.m_robotContainer;
     if(container.driverL.getRawButton(1) == true && container.driverL.getRawButton(2) == false){
@@ -128,7 +149,7 @@ public class Drivetrain extends SubsystemBase {
       Robot.driveTrain.balance();
     }
     else if(container.driverL.getRawButton(2) == true && container.driverL.getRawButton(1) == false){
-      Robot.driveTrain.Align();
+      Robot.driveTrain.pigeonAlign();
 
     }
     else if(container.driverL.getRawButton(3) == true){
